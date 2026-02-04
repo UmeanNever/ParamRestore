@@ -1,7 +1,7 @@
 <p align="center">
- <h2 align="center"> Parameter Restoration Analysis </h2>
+ <h2 align="center"> Parameter Restoration </h2>
  <p align="center">
-  A Tool for Analyzing Supervised Fine-Tuning of Large Language Models
+  A Tool for Analyzing and Improving Supervised Fine-Tuning of Large Language Models
  </p>
 </p>
 
@@ -12,7 +12,7 @@
 
 
 <p align="center">
-  <img src="/assets/restore.png" alt="llustration of the intuition behind RSR." width="450"/>
+  <img src="/assets/restore.png" alt="llustration of parameter restoration." width="400"/>
   <br>
   <em>
     Figure 1: Illustration of parameter restoration. <br> We find that SFT introduces many unnecessary parameter updates, and model performance can be significantly improved by restoring some of the most updated parameters in the fine-tuned model to their pre-SFT values.
@@ -22,23 +22,23 @@
 
 ## 📋 Overview
 
-This repository provides code for analyzing Supervised Fine-Tuning (SFT) of Large Language Models (LLMs) via parameter restoration, accompanying our paper *“Analyzing the Effects of Supervised Fine-Tuning on Model Knowledge from Token and Parameter Levels.”*
+This repository provides code for analyzing and improving Supervised Fine-Tuning (SFT) of Large Language Models (LLMs) via parameter restoration, accompanying our paper *“Analyzing the Effects of Supervised Fine-Tuning on Model Knowledge from Token and Parameter Levels.”*
 
 
 - 📖 **Paper**: [Read our paper on arXiv](https://arxiv.org/abs/2509.16596). Accepted to EMNLP 2025 (main conference).
-- 🛠️ **Code**: This repository provides a clean, lightweight implementation of the proposed **Parameter Restoration Analysis** method, designed to be easily extensible to new models and fine-tuning setups.
+- 🛠️ **Code**: This repository provides a clean, lightweight implementation of the proposed **Parameter Restoration** method, designed to be easily extensible to new models and fine-tuning setups.
 
 
 In the paper, we study five LLMs from two model families on the CBQA task and show that both the category and scale of fine-tuning data can influence model knowledge in unexpected ways.
 
 Our analysis further reveals that **up to 90% of parameter updates during SFT are unnecessary** and can even degrade model knowledge. Restoring some of the most heavily updated parameters in the fine-tuned model to their original values before SFT can significantly improve performance.
 
-This motivates a simple, effective, and generally applicable analysis tool:
+This motivates a simple, effective, and generally applicable tool:
 **selectively restore subsets of parameters** in a fine-tuned model to their pre-SFT values and measure the resulting impact.
 
 ## 🚀 Quick Start
 
-The code in this repository is refactored from our original research code to provide a clean, self-contained implementation of the parameter restoration analysis method.
+The code in this repository is refactored from our original research code to provide a clean, self-contained implementation of the parameter restoration method.
 
 **Given:**
 - an original model (e.g., pre-trained), and
@@ -72,3 +72,17 @@ GPU is recommended for large models, but not strictly required.
 Notes:
 - Dtype/device: the script runs with the model dtype you specify (default `bf16`) and supports both CPU and GPU execution.
 - Downstream evaluation of the restored models is left to the user. Users may choose appropriate LLM evaluation toolkits based on their specific use cases.
+
+## 📝 Citation
+
+If you find our work helpful, please consider citing our paper:
+
+```bibtex
+@inproceedings{ye2025analyzing,
+  title={Analyzing the Effects of Supervised Fine-Tuning on Model Knowledge from Token and Parameter Levels},
+  author={Ye, Junjie and Yang, Yuming and Nan, Yang and Li, Shuo and Zhang, Qi and Gui, Tao and Huang, Xuan-Jing and Wang, Peng and Shi, Zhongchao and Fan, Jianping},
+  booktitle={Proceedings of the 2025 Conference on Empirical Methods in Natural Language Processing},
+  pages={471--513},
+  year={2025}
+}
+```
