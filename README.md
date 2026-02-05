@@ -22,10 +22,10 @@
 
 ## 📋 Overview
 
-This repository provides code for analyzing and improving Supervised Fine-Tuning (SFT) of Large Language Models (LLMs) via parameter restoration, accompanying our paper **“Analyzing the Effects of Supervised Fine-Tuning on Model Knowledge from Token and Parameter Levels.”**
+This repository provides code for analyzing and improving Supervised Fine-Tuning (SFT) of Large Language Models (LLMs) via parameter restoration, accompanying our paper.
 
 
-- 📖 **Paper**: [Read our paper on arXiv](https://arxiv.org/abs/2509.16596). Accepted to **EMNLP 2025** (Main Conference). 🎉
+- 📖 **Paper**: [Analyzing the Effects of Supervised Fine-Tuning on Model Knowledge from Token and Parameter Levels](https://arxiv.org/abs/2509.16596). Accepted to **EMNLP 2025** (Main Conference). 🎉
 - 🛠️ **Code**: This repository provides a clean, lightweight implementation of the proposed **Parameter Restoration** method, designed to be **easily extensible** to new models and fine-tuning setups.
 
 
