@@ -22,7 +22,7 @@
 
 ## 📋 Overview
 
-This repository provides code for analyzing and improving Supervised Fine-Tuning (SFT) of Large Language Models (LLMs) via parameter restoration, accompanying our paper *“Analyzing the Effects of Supervised Fine-Tuning on Model Knowledge from Token and Parameter Levels.”*
+This repository provides code for analyzing and improving Supervised Fine-Tuning (SFT) of Large Language Models (LLMs) via parameter restoration, accompanying our paper **“Analyzing the Effects of Supervised Fine-Tuning on Model Knowledge from Token and Parameter Levels.”**
 
 
 - 📖 **Paper**: [Read our paper on arXiv](https://arxiv.org/abs/2509.16596). Accepted to EMNLP 2025 (main conference).
@@ -80,11 +80,32 @@ Notes:
 If you find our work helpful, please consider citing our paper:
 
 ```bibtex
-@inproceedings{ye2025analyzing,
-  title={Analyzing the Effects of Supervised Fine-Tuning on Model Knowledge from Token and Parameter Levels},
-  author={Ye, Junjie and Yang, Yuming and Nan, Yang and Li, Shuo and Zhang, Qi and Gui, Tao and Huang, Xuan-Jing and Wang, Peng and Shi, Zhongchao and Fan, Jianping},
-  booktitle={Proceedings of the 2025 Conference on Empirical Methods in Natural Language Processing},
-  pages={471--513},
-  year={2025}
+@inproceedings{DBLP:conf/emnlp/YeYNLZGHWSF25,
+  author       = {Junjie Ye and
+                  Yuming Yang and
+                  Yang Nan and
+                  Shuo Li and
+                  Qi Zhang and
+                  Tao Gui and
+                  Xuanjing Huang and
+                  Peng Wang and
+                  Zhongchao Shi and
+                  Jianping Fan},
+  editor       = {Christos Christodoulopoulos and
+                  Tanmoy Chakraborty and
+                  Carolyn Rose and
+                  Violet Peng},
+  title        = {Analyzing the Effects of Supervised Fine-Tuning on Model Knowledge
+                  from Token and Parameter Levels},
+  booktitle    = {Proceedings of the 2025 Conference on Empirical Methods in Natural
+                  Language Processing, {EMNLP} 2025, Suzhou, China, November 4-9, 2025},
+  pages        = {471--513},
+  publisher    = {Association for Computational Linguistics},
+  year         = {2025},
+  url          = {https://doi.org/10.18653/v1/2025.emnlp-main.25},
+  doi          = {10.18653/V1/2025.EMNLP-MAIN.25},
+  timestamp    = {Mon, 02 Feb 2026 09:39:37 +0100},
+  biburl       = {https://dblp.org/rec/conf/emnlp/YeYNLZGHWSF25.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
 }
 ```
