@@ -15,7 +15,7 @@
   <img src="/assets/restore.png" alt="llustration of parameter restoration." width="400"/>
   <br>
   <em>
-    Figure 1: Illustration of parameter restoration. <br> We find that SFT introduces many unnecessary parameter updates, and model performance can be significantly improved by restoring some of the most updated parameters in the fine-tuned model to their pre-SFT values.
+    Figure: Illustration of parameter restoration. <br> We find that SFT introduces many unnecessary parameter updates, and model performance can be significantly improved by restoring some of the most updated parameters in the fine-tuned model to their pre-SFT values.
   </em>
 </p>
 
@@ -25,8 +25,8 @@
 This repository provides code for analyzing and improving Supervised Fine-Tuning (SFT) of Large Language Models (LLMs) via parameter restoration, accompanying our paper **“Analyzing the Effects of Supervised Fine-Tuning on Model Knowledge from Token and Parameter Levels.”**
 
 
-- 📖 **Paper**: [Read our paper on arXiv](https://arxiv.org/abs/2509.16596). Accepted to EMNLP 2025 (main conference).
-- 🛠️ **Code**: This repository provides a clean, lightweight implementation of the proposed **Parameter Restoration** method, designed to be easily extensible to new models and fine-tuning setups.
+- 📖 **Paper**: [Read our paper on arXiv](https://arxiv.org/abs/2509.16596). Accepted to **EMNLP 2025** (main conference).
+- 🛠️ **Code**: This repository provides a clean, lightweight implementation of the proposed **Parameter Restoration** method, designed to be **easily extensible** to new models and fine-tuning setups.
 
 
 In the paper, we study five LLMs from two model families on the CBQA task and show that both the category and scale of fine-tuning data can influence model knowledge in unexpected ways.
@@ -40,7 +40,7 @@ For more information and a detailed introduction to parameter restoration, pleas
 
 ## 🚀 Quick Start
 
-The code in this repository is refactored from our original research code to provide a clean, self-contained implementation of the parameter restoration method.
+The code in this repository is refactored from our original research code to provide a **clean, self-contained implementation** of the parameter restoration method.
 
 **Given:**
 - an original model (e.g., pre-trained), and
