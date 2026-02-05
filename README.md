@@ -31,10 +31,12 @@ This repository provides code for analyzing and improving Supervised Fine-Tuning
 
 In the paper, we study five LLMs from two model families on the CBQA task and show that both the category and scale of fine-tuning data can influence model knowledge in unexpected ways.
 
-Our analysis further reveals that **up to 90% of parameter updates during SFT are unnecessary** and can even degrade model knowledge. Restoring some of the most heavily updated parameters in the fine-tuned model to their original values before SFT can significantly improve performance.
+Our analysis further reveals that **up to 90% of parameter updates during SFT are unnecessary** and can even undermine the model’s ability to leverage its knowledge when answering questions. Restoring some of the most heavily updated parameters in the fine-tuned model to their original values before SFT can significantly improve performance.
 
 This motivates a simple, effective, and generally applicable tool:
 **selectively restore subsets of parameters** in a fine-tuned model to their pre-SFT values and measure the resulting impact.
+
+For more information and a detailed introduction to parameter restoration, please refer to our paper.
 
 ## 🚀 Quick Start
 
@@ -51,8 +53,8 @@ The code in this repository is refactored from our original research code to pro
 4. Saves the restored model for downstream evaluation, along with concise TSV/JSON logs for analysis.
 
 ### Files
+- `launch_param_restore.py`: **Entry point** and batch runner. 
 - `param_restore.py`: Core implementation (diff → select → restore → save + logging).  
-- `launch_param_restore.py`: **Entrypoint** and batch runner. 
 - See inline comments in these files for full details.
 
 ### Simple Run
