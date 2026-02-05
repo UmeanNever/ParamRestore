@@ -25,7 +25,7 @@
 This repository provides code for analyzing and improving Supervised Fine-Tuning (SFT) of Large Language Models (LLMs) via parameter restoration, accompanying our paper.
 
 
-- 📖 **Paper**: [Analyzing the Effects of Supervised Fine-Tuning on Model Knowledge from Token and Parameter Levels](https://arxiv.org/abs/2509.16596). Accepted to **EMNLP 2025** (Main Conference). 🎉
+- 📖 **Paper**: [Analyzing the Effects of Supervised Fine-Tuning on Model Knowledge from Token and Parameter Levels](https://arxiv.org/abs/2509.16596) . Accepted to **EMNLP 2025** (Main Conference). 🎉
 - 🛠️ **Code**: This repository provides a clean, lightweight implementation of the proposed **Parameter Restoration** method, designed to be **easily extensible** to new models and fine-tuning setups.
 
 
@@ -80,32 +80,30 @@ Notes:
 If you find our work helpful, please consider citing our paper:
 
 ```bibtex
-@inproceedings{DBLP:conf/emnlp/YeYNLZGHWSF25,
-  author       = {Junjie Ye and
-                  Yuming Yang and
-                  Yang Nan and
-                  Shuo Li and
-                  Qi Zhang and
-                  Tao Gui and
-                  Xuanjing Huang and
-                  Peng Wang and
-                  Zhongchao Shi and
-                  Jianping Fan},
-  editor       = {Christos Christodoulopoulos and
-                  Tanmoy Chakraborty and
-                  Carolyn Rose and
-                  Violet Peng},
-  title        = {Analyzing the Effects of Supervised Fine-Tuning on Model Knowledge
-                  from Token and Parameter Levels},
-  booktitle    = {Proceedings of the 2025 Conference on Empirical Methods in Natural
-                  Language Processing, {EMNLP} 2025, Suzhou, China, November 4-9, 2025},
-  pages        = {471--513},
-  publisher    = {Association for Computational Linguistics},
-  year         = {2025},
-  url          = {https://doi.org/10.18653/v1/2025.emnlp-main.25},
-  doi          = {10.18653/V1/2025.EMNLP-MAIN.25},
-  timestamp    = {Mon, 02 Feb 2026 09:39:37 +0100},
-  biburl       = {https://dblp.org/rec/conf/emnlp/YeYNLZGHWSF25.bib},
-  bibsource    = {dblp computer science bibliography, https://dblp.org}
+@inproceedings{ye-etal-2025-analyzing,
+    title = "Analyzing the Effects of Supervised Fine-Tuning on Model Knowledge from Token and Parameter Levels",
+    author = "Ye, Junjie  and
+      Yang, Yuming  and
+      Nan, Yang  and
+      Li, Shuo  and
+      Zhang, Qi  and
+      Gui, Tao  and
+      Huang, Xuanjing  and
+      Wang, Peng  and
+      Shi, Zhongchao  and
+      Fan, Jianping",
+    editor = "Christodoulopoulos, Christos  and
+      Chakraborty, Tanmoy  and
+      Rose, Carolyn  and
+      Peng, Violet",
+    booktitle = "Proceedings of the 2025 Conference on Empirical Methods in Natural Language Processing",
+    month = nov,
+    year = "2025",
+    address = "Suzhou, China",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2025.emnlp-main.25/",
+    doi = "10.18653/v1/2025.emnlp-main.25",
+    pages = "471--513",
+    ISBN = "979-8-89176-332-6"
 }
 ```
