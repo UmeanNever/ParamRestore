@@ -52,19 +52,20 @@ The code in this repository is refactored from our original research code to pro
 3. Restores the selected parameters in the fine-tuned model to their corresponding values in the original model.  
 4. Saves the restored model for downstream evaluation, along with concise TSV/JSON logs for analysis.
 
-### Files
-- `launch_param_restore.py`: **Entry point** and batch runner. 
+### File Structure
+- `launch_param_restore.py`: **Entry point** and batch runner. It calls `param_restore.py` with your customized configuration. 
 - `param_restore.py`: Core implementation (diff → select → restore → save + logging).  
 - See inline comments in these files for full details.
 
-### Simple Run
+### Running the Code
 
 Define model paths, restoration settings, and other configurations in `launch_param_restore.py`, then run the script to perform parameter restoration:
 ```
 python launch_param_restore.py
 ```
 
-### Environment
+### Dependencies
+
 You may need to install the following dependencies in your Python environment:
 ```
 pip install torch transformers numpy fire
