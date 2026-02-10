@@ -33,7 +33,7 @@ In the paper, we study five LLMs from two model families on the CBQA task and sh
 
 Our analysis further reveals that **up to 90% of parameter updates during SFT are unnecessary** and can even undermine the model’s ability to leverage its knowledge when answering questions. Restoring some of the most heavily updated parameters in the fine-tuned model to their original values before SFT can significantly improve performance.
 
-This motivates a simple, effective, and generally applicable tool:
+This motivates **a simple, effective, and generally applicable tool**:
 **selectively restore subsets of parameters** in a fine-tuned model to their pre-SFT values and measure the resulting impact.
 
 For more information and a detailed introduction to parameter restoration, please refer to our paper.
