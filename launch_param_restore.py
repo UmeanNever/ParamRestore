@@ -28,9 +28,8 @@ def main():
     strategy = "top"        # top/bottom/random, the paper uses "top"
 
     # Runtime
-    device = "auto"         # auto/cpu/cuda/cuda:0
-    diff_device = "auto"    # where to compute flat diff + topk; usually same as device
-    dtype = "bf16"          # bf16/fp16/fp32, the paper uses "bf16"
+    diff_device = "cpu"     # cpu/auto/cuda/cuda:0... where to compute param diff + topk, the paper uses a gpu to compute these for 7B models. Note that model weights are still loaded on cpu to avoid OOM.
+    dtype = "bf16"          # bf16/fp16/fp32, the paper uses "bf16" with gpu
     seed = 32
 
     # Optional log folder
@@ -63,7 +62,6 @@ def main():
                 "--k_percent", str(k),
                 "--strategy", strategy,
                 "--region", region,
-                "--device", device,
                 "--diff_device", diff_device,
                 "--dtype", dtype,
                 "--seed", str(seed),

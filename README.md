@@ -68,12 +68,13 @@ python launch_param_restore.py
 
 You may need to install the following dependencies in your Python environment:
 ```
-pip install torch transformers numpy fire
+pip install torch transformers numpy fire accelerate
 ```
-GPU is recommended for large models, but not strictly required.
+GPU is recommended for faster execution, but not strictly required.
 
-Notes:
-- Dtype/device: the script runs with the model dtype you specify (default `bf16`) and supports both CPU and GPU execution.
+**Notes:**
+- Dtype / Device: the script runs with the model dtype you specify (default `bf16`) and supports both CPU and GPU execution. 
+- Current code loads models on the CPU and allows the necessary computations (parameter diff and top-k selection) to be optionally performed on a GPU (by setting `diff_device`) for improved speed while respecting GPU memory constraints.
 - Downstream evaluation of the restored models is left to the user. Users may choose appropriate LLM evaluation toolkits based on their specific use cases.
 
 ## 📝 Citation

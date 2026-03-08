@@ -89,6 +89,7 @@ def _load_model(model_path: str, torch_dtype: torch.dtype) -> AutoModelForCausal
     return AutoModelForCausalLM.from_pretrained(
         model_path,
         torch_dtype=torch_dtype,
+        # device_map="auto",  # Use device_map if you want to load directly to GPU, but here we load to CPU and move params as needed.
         trust_remote_code=True,
     )
 
@@ -233,7 +234,6 @@ def _restore_selected(
     param_meta: List[Tuple[str, int, torch.Size]],
     selected_indices: torch.Tensor,
     output_dir: str,
-    device: torch.device,
 ) -> None:
     """
     Apply element-level restore: new_param[selected] = old_param[selected]
@@ -241,14 +241,10 @@ def _restore_selected(
     """
     os.makedirs(output_dir, exist_ok=True)
 
-    # Build a global boolean mask on the same device as selected_indices
+    # Build a global boolean mask for selected indices
     region_total = sum(numel for _, numel, _ in param_meta)
-    global_mask = torch.zeros((region_total,), dtype=torch.bool, device=selected_indices.device)
-    global_mask.scatter_(0, selected_indices, True)
-
-    # Move models to target device for restore + save
-    old_model.to(device)
-    new_model.to(device)
+    global_mask = torch.zeros((region_total,), dtype=torch.bool, device="cpu")
+    global_mask[selected_indices.cpu()] = True
 
     # Iterate params in the SAME order used to build param_meta
     old_sd = dict(old_model.named_parameters())
@@ -258,19 +254,21 @@ def _restore_selected(
 
     offset = 0
     for name, numel, shape in param_meta:
-        m = global_mask[offset : offset + numel].view(shape).to(device)
         p_new = new_sd[name]
         p_old = old_sd[name]
+        m = global_mask[offset: offset + numel].view(shape).to(p_new.device)
 
         # Element-level restore: selected positions take original value.
         # Equivalent to: p_new = (~mask)*p_new + mask*p_old
-        p_new.data.copy_(torch.where(m, p_old.data, p_new.data))
+        old_local = p_old.data.to(p_new.device)
+        p_new.data[m] = old_local[m]
 
         restored_numel = int(m.sum().item())
         restored_ratio = float(restored_numel / numel) if numel > 0 else 0.0
         restore_rows.append((name, _layer_id(name), restored_numel, int(numel), restored_ratio))
 
         offset += numel
+        del m, old_local
 
     assert offset == region_total
 
@@ -291,6 +289,9 @@ def _save_matrix_summary_tsv(rows: List[ParamSummaryRow], path: str) -> None:
 
 def _save_selected_param_stats(payload: Dict[str, object], path: str) -> None:
     os.makedirs(os.path.dirname(path), exist_ok=True)
+    payload = dict(payload)
+    if isinstance(payload.get("selected_indices"), torch.Tensor):
+        del payload["selected_indices"]
     with open(path, "w", encoding="utf-8") as f:
         json.dump(payload, f, indent=2, ensure_ascii=False)
 
@@ -314,9 +315,8 @@ def run(
     k_percent: float = 1.0,
     strategy: str = "top",  # top/bottom/random
     region: str = "transformer",  # transformer/embedding/mlp/attention
-    device: str = "auto",  # auto/cpu/cuda/cuda:0...
+    diff_device: str = "cpu",  # cpu/auto/cuda/cuda:0... where to compute param diff + topk
     dtype: str = "bf16",   # bf16/fp16/fp32
-    diff_device: str = "auto",  # where to compute flat diff + topk; usually same as device
     seed: int = 32,
     log_path: Optional[str] = None,
     verbose: bool = True,
@@ -333,15 +333,14 @@ def run(
     """
     _setup_logging(log_path=log_path, verbose=verbose)
 
-    device_t = _infer_device(device)
-    diff_device_t = _infer_device(diff_device) if diff_device else device_t
+    diff_device_t = _infer_device(diff_device)
     torch_dtype = _infer_dtype(dtype)
 
     logging.info(f"target_model_path={target_model_path}")
     logging.info(f"original_model_path={original_model_path}")
     logging.info(f"output_path={output_path}")
     logging.info(f"region={region}, strategy={strategy}, k_percent={k_percent}")
-    logging.info(f"device={device_t}, diff_device={diff_device_t}, dtype={torch_dtype}")
+    logging.info(f"diff_device={diff_device_t}, dtype={torch_dtype}")
     logging.info(f"seed={seed}")
 
     t0 = time.time()
@@ -364,8 +363,8 @@ def run(
     selection_info = _select_indices(flat_diff=flat_diff, k_percent=k_percent, strategy=strategy, seed=seed)
     sel_idx: torch.Tensor = selection_info["selected_indices"]
     logging.info(f"Selected k_count={selection_info['k_count']} in {time.time() - t2:.2f}s")
-    logging.info(f"Selected stats: {selection_info['selected_stats']}")
-    logging.info(f"Total stats: {selection_info['total_stats']}")
+    logging.info(f"Selected stats: {selection_info['selected_rel_diffs']}")
+    logging.info(f"Total stats: {selection_info['total_rel_diffs']}")
 
     # Save summaries (before restore, they describe original diff between models)
     _save_matrix_summary_tsv(summary_rows, os.path.join(output_path, "diff_summary.tsv"))
@@ -379,7 +378,6 @@ def run(
         param_meta=param_meta,
         selected_indices=sel_idx,
         output_dir=output_path,
-        device=device_t,
     )
     logging.info(f"Restored + saved model in {time.time() - t3:.2f}s")
 
