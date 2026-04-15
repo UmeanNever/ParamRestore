@@ -1,7 +1,7 @@
 <p align="center">
  <h2 align="center"> Parameter Restoration </h2>
  <p align="center">
-  A Tool for Analyzing and Improving Supervised Fine-Tuning of Large Language Models
+  A Tool for Analyzing and Improving Supervised Fine-Tuning of Large Language Models <br/> From the EMNLP 2025 paper <strong>"Analyzing the Effects of Supervised Fine-Tuning on Model Knowledge from Token and Parameter Levels"</strong>
  </p>
 </p>
 
